@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Office documents
+*.doc
+*.docx
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+
+# MATLAB generated
+*.asv
+*.mex*
+*.slxc
+
+# Data folders — keep folder structure, ignore contents
+data/*
+!data/.gitkeep
+
+exported_data/*
+!exported_data/.gitkeep
+
+figures/*
+!figures/.gitkeep
+
+# Solution folder — ignore entirely
+solution/
