@@ -69,7 +69,6 @@ end
 %Add the helper function into path
 addpath(genpath(tutorial_root));
 
-
 %% -----------------------------------------------------------------------
 %  SECTION 1 — Load the combined CSV
 %  -----------------------------------------------------------------------
@@ -137,9 +136,9 @@ end
 %            * Direction(direction): left or right. 
 %            * Response (response): left or right choice
 %  =========TO-DO=======
-%stimulus_mag = ____ ;     % stimulus onset asychrony magnitude (ms)
-%direction =  ____;
-%response =  ____;
+stimulus_mag = data.dr_InitialTargetDuration;     % stimulus onset asychrony magnitude (ms)
+direction =  data.direction;
+response = data.response;
 
 %  ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 %  Step 2: Drop invalid trials (e.g. unsucessfully finished? Time out/ Broke touching?) 
@@ -148,11 +147,11 @@ end
 %  AI PROMPT (if stuck):
 %      "How could I remove the NaN values from a column?"
 
-%keep = ____s
-%stimulus_mag  =_____;
-%direction  = _____;
-%response  = _____;
-
+keep = ~isnan(stimulus_mag) & ~isnan(direction) & ...
+       (data.response == "left" | data.response == "right");
+stimulus_mag    = stimulus_mag(keep);
+direction  = direction(keep);
+response  = response(keep);
 
 fprintf('Using %d valid trials for the psychometric fit.\n', sum(keep));
 
@@ -165,6 +164,10 @@ fprintf('Using %d valid trials for the psychometric fit.\n', sum(keep));
 %       the response was 'right'?"
 %
 %  =========TO-DO=======
+direction_sign            = direction;
+direction_sign(direction_sign == 0) = -1;          % left-first => -1, right-first => +1
+
+response_right = strcmp(response, 'right');        % 1 if chose right, 0 if otherwise
 
 
 % Put them into a matrix for passing to the helper function for psychometric function 
@@ -194,7 +197,8 @@ psymat = [stimulus_mag, direction_sign, response_right];
 
 % ==============TO-DO: Complete the VisPsychometricFunction=============
 
-[pse, threshold] = VisPsychometricFunction(psymat);
+ 
+[pse, threshold] = VisPsychometricFunction_Solution(psymat);
 
 fprintf('\n=========================================\n');
 fprintf('  PSE       = %.2f ms  (bias)\n', pse);

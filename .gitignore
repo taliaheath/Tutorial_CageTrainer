@@ -30,5 +30,4 @@ exported_data/*
 figures/*
 !figures/.gitkeep
 
-# Solution folder — ignore entirely
-solution/
+
