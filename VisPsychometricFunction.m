@@ -1,4 +1,4 @@
-function [pse, threshold] = VisPsychometricFunction_Solution(psymat)
+function [pse, threshold] = VisPsychometricFunction(psymat)
 % =========================================================================
 % VisPsychometricFunction_Solution — REFERENCE SOLUTION
 % =========================================================================
